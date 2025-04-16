@@ -16,7 +16,7 @@ Before starting the setup, ensure your system has the following requirements:
 
 ### 1. Project Files Transfer
 
-1. Copy the entire `TrendNest_YT` project folder to the new computer
+1. Copy the entire `TrendNest` project folder to the new computer
 2. Ensure all files are copied except for:
    - `vendor` directory (will be installed later)
    - `.env` file (if you have one, copy it but update the credentials)
