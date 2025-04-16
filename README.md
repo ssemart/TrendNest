@@ -1,4 +1,4 @@
-# TrendNest_YT Project Setup Guide
+# TrendNest Project Setup Guide
 
 This guide provides step-by-step instructions for setting up the TrendNest_YT Laravel project on a new computer.
 
