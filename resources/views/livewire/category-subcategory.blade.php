@@ -8,7 +8,7 @@
     </select>
 
     <label for="subcategory_id " class="fw-bold mb-2">Select a Sub Category for your Product</label>
-    <select class="form-control mb-2"name="subcategory_id">
+    <select class="form-control mb-2"name="subcategory_id" wire:model.live="selectedSubcategory">
         <option value="">Select A Sub Category</option>
         @foreach($subcategories as $subcategory)
         <option value="{{$subcategory->id}}">{{$subcategory->subcategory_name}}</option>

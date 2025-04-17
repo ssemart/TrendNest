@@ -166,3 +166,6 @@ If you encounter any issues during setup, please:
 3. Check for any JavaScript compilation errors in the terminal
 
 For additional help, refer to the official Laravel documentation: [laravel.com/docs](https://laravel.com/docs)
+
+storage link
+php artisan storage:link

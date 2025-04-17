@@ -42,7 +42,7 @@ class Product extends Model
         public function seller(): BelongsTo{
             return $this->belongsTo(User::class);
         }
-        public function images():{
+        public function images(){
             return $this->hasMany(ProductImage::class);
         }
     
