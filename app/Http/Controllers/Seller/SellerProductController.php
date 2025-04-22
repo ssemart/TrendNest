@@ -65,7 +65,7 @@ class SellerProductController extends Controller
                 $path = $file->store('product_images', 'public');
                 ProductImage::create([
                     'product_id' => $product->id,
-                    'image_path' => $path,
+                    'img_path' => $path,
                     'is_primary' => false,
                 ]);
             }
