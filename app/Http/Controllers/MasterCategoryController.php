@@ -41,5 +41,5 @@ class MasterCategoryController extends Controller
 
         return redirect() -> back() -> with('message', 'Category Deleted Successfully');
 
-}
+    }
 }

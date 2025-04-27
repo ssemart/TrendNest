@@ -12,7 +12,7 @@ class ProductImage extends Model
 
     protected $fillable = [
         'product_id',
-        'img_path',
+        'img_path', // Changed from image_path to img_path to match the migration
         'is_primary'
     ];
 

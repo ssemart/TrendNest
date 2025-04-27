@@ -69,6 +69,13 @@ Add Product
             <label for="meta_description" class="fw-bold mb-2">Meta Description</label>
             <input type="text" class="form-control mb-2" name="meta_description">
 
+            <div class="mb-3">
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="visibility" id="visibility" value="1" {{ old('visibility') ? 'checked' : '' }}>
+                    <label class="form-check-label" for="visibility">Make Product Visible</label>
+                </div>
+            </div>
+
             <button type="submit" class="btn btn-primary w-100 mt-2">Add Product</button>
         </form>
       </div>

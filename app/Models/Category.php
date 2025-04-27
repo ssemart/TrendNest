@@ -12,6 +12,14 @@ class Category extends Model
     use HasFactory;
     protected $fillable = [
         'category_name',
+        'image_path',
+        'is_featured',
+        'featured_order'
+    ];
+
+    protected $casts = [
+        'is_featured' => 'boolean',
+        'featured_order' => 'integer'
     ];
 
     public function subcategories(): HasMany{

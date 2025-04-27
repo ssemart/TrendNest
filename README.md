@@ -169,3 +169,17 @@ For additional help, refer to the official Laravel documentation: [laravel.com/d
 
 storage link
 php artisan storage:link
+
+
+First, I'll check if the storage link exists and delete it if it does, then recreate it:
+d:\Xampp\htdocs\Ecommerce\TrendNest\public\storage
+php artisan storage:link --force
+ls -l d:\Xampp\htdocs\Ecommerce\TrendNest\public\storage
+
+php artisan make:migration modify_product_price_columns
+
+Go to the admin panel and edit your categories
+Upload images for each category (recommended size 800x600 pixels)
+The categories will automatically appear in a responsive grid on your homepage, with the images as backgrounds and category names overlaid
+When you hover over a category, there will be a nice zoom effect and the overlay will darken slightly
+Clicking a category will take users to that category's product listing page

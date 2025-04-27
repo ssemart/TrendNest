@@ -8,16 +8,38 @@ use Livewire\Component;
 
 class CategorySubcategory extends Component
 {
-    public $categories=[];
-    public $selectedCategory=[];
-    public $subcategories=[];
-    public function mount (){
+    public $categories = [];
+    public $selectedCategory = null;
+    public $subcategories = [];
+    public $selectedSubcategory = null;
+
+    public function mount($selectedCategory = null, $selectedSubcategory = null) 
+    {
         $this->categories = Category::all();
-    }
-    public function updatedSelectedCategory($categoryId){
-        $this->subcategories = Subcategory::where('category_id',$categoryId)->get();
+        $this->selectedCategory = $selectedCategory;
+        $this->selectedSubcategory = $selectedSubcategory;
+        
+        if ($this->selectedCategory) {
+            $this->loadSubcategories($this->selectedCategory);
+        }
     }
 
+    public function updatedSelectedCategory($categoryId) 
+    {
+        $this->loadSubcategories($categoryId);
+    }
+
+    private function loadSubcategories($categoryId) 
+    {
+        if ($categoryId) {
+            $this->subcategories = Subcategory::where('category_id', $categoryId)->get();
+            $this->selectedSubcategory = null;
+        } else {
+            $this->subcategories = collect();
+            $this->selectedSubcategory = null;
+        }
+        $this->dispatch('subcategories-updated');
+    }
 
     public function render()
     {

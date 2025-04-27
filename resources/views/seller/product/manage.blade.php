@@ -33,7 +33,7 @@ Manage Product
                                     <td>{{$product->id}}</td>
                                     <td>{{$product->product_name}}</td>
                                     <td>{{$product->stock_quantity}}</td>
-                                    <td>{{$product->regular_price}}</td>
+                                    <td>UGX {{ number_format($product->regular_price, 0) }}</td>
                                     <td>
                                         <a href="" class="btn btn-info">Edit</a>
                                         <form action="" method="POST" style="display: inline-block;">

@@ -10,6 +10,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Product extends Model
 {
     use HasFactory;
+
+    public const STOCK_STATUS_IN_STOCK = 'in_stock';
+    public const STOCK_STATUS_OUT_OF_STOCK = 'out_of_stock';
+
     protected $fillable = [
         'product_name',
         'description',
@@ -24,26 +28,45 @@ class Product extends Model
         'stock_quantity',
         'stock_status',
         'slug',
-        'Visibility',
+        'visibility',
         'meta_title',
         'meta_description',
         'status',
-        ];
+    ];
 
-        public function category(): BelongsTo{
-            return $this->belongsTo(Category::class);
-        }
-        public function subcategory(): BelongsTo{
-            return $this->belongsTo(Subcategory::class);
-        }
-        public function store(): BelongsTo{
-            return $this->belongsTo(Store::class);
-        }
-        public function seller(): BelongsTo{
-            return $this->belongsTo(User::class);
-        }
-        public function images(){
-            return $this->hasMany(ProductImage::class);
-        }
+    protected $casts = [
+        'stock_status' => 'string',
+        'visibility' => 'boolean',
+        'regular_price' => 'decimal:2',
+        'discounted_price' => 'decimal:2',
+        'tax_rate' => 'decimal:2',
+    ];
+
+    public function category(): BelongsTo{
+        return $this->belongsTo(Category::class);
+    }
+    public function subcategory(): BelongsTo{
+        return $this->belongsTo(Subcategory::class);
+    }
+    public function store(): BelongsTo{
+        return $this->belongsTo(Store::class);
+    }
+    public function seller(): BelongsTo{
+        return $this->belongsTo(User::class);
+    }
+    
+    // Original relationship kept for backward compatibility
+    public function images(){
+        return $this->hasMany(ProductImage::class);
+    }
+    
+    // Added new relationship name to match your code
+    public function productImages(){
+        return $this->hasMany(ProductImage::class);
+    }
+
+    public function carts(): HasMany {
+        return $this->hasMany(Cart::class);
+    }
     
 }

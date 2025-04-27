@@ -33,20 +33,20 @@
 						Main
 					</li>
 
-					<li class="sidebar-item"{{request()->routeIs('dashboard')?'active': ''}}>
-						<a class="sidebar-link" href="{{route('dashboard')}}">
+					<li class="sidebar-item"{{request()->routeIs('customer.dashboard')?'active': ''}}>
+						<a class="sidebar-link" href="{{route('customer.dashboard')}}">
               <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
             </a>
 					</li>
 
-					<li class="sidebar-item"{{request()->routeIs('customer.history')?'active': ''}}>
-						<a class="sidebar-link" href="{{route('customer.history')}}">
+					<li class="sidebar-item"{{request()->routeIs('customer.order.history')?'active': ''}}>
+						<a class="sidebar-link" href="{{route('customer.order.history')}}">
               <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Order history</span>
             </a>
 					</li>
 
-					<li class="sidebar-item"{{request()->routeIs('customer.payment')?'active': ''}}>
-						<a class="sidebar-link" href="{{route('customer.payment')}}">
+					<li class="sidebar-item"{{request()->routeIs('customer.setting.payment')?'active': ''}}>
+						<a class="sidebar-link" href="{{route('customer.setting.payment')}}">
               <i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Payment</span>
             </a>
 					</li>
@@ -220,10 +220,11 @@
               </a>
 
 							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                <img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark">Charles Hall</span>
+                <img src="{{ Auth::user()->profile_picture_url }}" class="avatar img-fluid rounded me-1" alt="{{ Auth::user()->name }}" /> 
+                <span class="text-dark">{{ Auth::user()->name }}</span>
               </a>
 							<div class="dropdown-menu dropdown-menu-end">
-								<a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
+<a class="dropdown-item" href="{{ route('profile') }}"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
 								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>

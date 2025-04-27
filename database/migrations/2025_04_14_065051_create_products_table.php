@@ -18,13 +18,13 @@ return new class extends Migration
             $table->string('sku')->unique();
             $table->foreignId('seller_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
-            $table->foreignId('subcategory_id')->constrained('subcategories')->onDelete('cascade');
+            $table->foreignId('subcategory_id')->nullable()->constrained('subcategories')->onDelete('cascade');
             $table->foreignId('store_id')->constrained('stores')->onDelete('cascade');
-            $table->decimal('regular_price', 8,2);
-            $table->decimal('discounted_price', 8,2)->nullable();
-            $table->decimal('tax_rate', 5,2)->default(0.00);
+            $table->decimal('regular_price', 12, 2);
+            $table->decimal('discounted_price', 12, 2)->nullable();
+            $table->decimal('tax_rate', 5, 2)->default(0.00);
             $table->integer('stock_quantity')->default(0);
-            $table->enum('stock_status',['In Stock','Out of Stock'])->default('In Stock');
+            $table->enum('stock_status', ['in_stock', 'out_of_stock'])->default('in_stock');
             $table->string('slug')->unique();
             $table->boolean('Visibility')->default(false);
             $table->string('meta_title')->nullable();

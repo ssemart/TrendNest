@@ -27,84 +27,109 @@
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
-				<a class="sidebar-brand" href="index.html">
-          <span class="align-middle">Seller Dashboard</span>
-        </a>
+				<a class="sidebar-brand" href="{{ route('vendor.dashboard') }}">
+					<span class="align-middle">TrendNest Seller</span>
+				</a>
 
 				<ul class="sidebar-nav">
 					<li class="sidebar-header">
-						Main
+						Overview
 					</li>
 
-					<li class="sidebar-item"{{request()->routeIs('vendor')?'active': ''}}>
-						<a class="sidebar-link" href="{{route('vendor')}}">
-              <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
-            </a>
-					</li>
-
-					<li class="sidebar-item"{{request()->routeIs('vendor.order.history')?'active': ''}}>
-						<a class="sidebar-link" href="{{route('vendor.order.history')}}">
-              <i class="align-middle" data-feather="list"></i> <span class="align-middle">Order history</span>
-            </a>
-					</li>
-
-					</li>
-					<li class="sidebar-header">
-						Store
-					</li>
-
-					<li class="sidebar-item"{{request()->routeIs('vendor.store')?'active': ''}}>
-						<a class="sidebar-link" href="{{route('vendor.store')}}">
-							<i class="align-middle" data-feather="plus"></i> <span class="align-middle">Create</span>
+					<li class="sidebar-item{{request()->routeIs('vendor.dashboard')?'active': ''}}">
+						<a class="sidebar-link" href="{{route('vendor.dashboard')}}">
+							<i class="align-middle" data-feather="home"></i> 
+							<span class="align-middle">Dashboard</span>
 						</a>
 					</li>
 
-					<li class="sidebar-item"{{request()->routeIs('vendor.store.manage')?'active': ''}}>
+					<li class="sidebar-item{{request()->routeIs('vendor.analytics')?'active': ''}}">
+						<a class="sidebar-link" href="#">
+							<i class="align-middle" data-feather="bar-chart-2"></i> 
+							<span class="align-middle">Analytics</span>
+						</a>
+					</li>
+
+					<li class="sidebar-header">
+						Store Management
+					</li>
+
+					<li class="sidebar-item{{request()->routeIs('vendor.store.create')?'active': ''}}">
+						<a class="sidebar-link" href="{{route('vendor.store.create')}}">
+							<i class="align-middle" data-feather="plus-square"></i> 
+							<span class="align-middle">Create Store</span>
+						</a>
+					</li>
+
+					<li class="sidebar-item{{request()->routeIs('vendor.store.manage')?'active': ''}}">
 						<a class="sidebar-link" href="{{route('vendor.store.manage')}}">
-							<i class="align-middle" data-feather="list"></i> <span class="align-middle">Manage</span>
+							<i class="align-middle" data-feather="shopping-bag"></i> 
+							<span class="align-middle">Manage Stores</span>
 						</a>
 					</li>
 
-					</li>
 					<li class="sidebar-header">
-						Product
+						Products
 					</li>
 
-					<li class="sidebar-item"{{request()->routeIs('vendor.product')?'active': ''}}>
-						<a class="sidebar-link" href="{{route('vendor.product')}}">
-							<i class="align-middle" data-feather="plus"></i> <span class="align-middle">Create</span>
+					<li class="sidebar-item{{request()->routeIs('vendor.product.create')?'active': ''}}">
+						<a class="sidebar-link" href="{{route('vendor.product.create')}}">
+							<i class="align-middle" data-feather="plus"></i> 
+							<span class="align-middle">Add Product</span>
 						</a>
 					</li>
 
-					<li class="sidebar-item"{{request()->routeIs('vendor.product.manage')?'active': ''}}>
+					<li class="sidebar-item{{request()->routeIs('vendor.product.manage')?'active': ''}}">
 						<a class="sidebar-link" href="{{route('vendor.product.manage')}}">
-							<i class="align-middle" data-feather="list"></i> <span class="align-middle">Manage</span>
+							<i class="align-middle" data-feather="package"></i> 
+							<span class="align-middle">Manage Products</span>
 						</a>
 					</li>
 
+					<li class="sidebar-header">
+						Orders & Customers
+					</li>
 
+					<li class="sidebar-item{{request()->routeIs('vendor.order.history')?'active': ''}}">
+						<a class="sidebar-link" href="{{route('vendor.order.history')}}">
+							<i class="align-middle" data-feather="shopping-cart"></i> 
+							<span class="align-middle">Orders</span>
+						</a>
+					</li>
 
+					<li class="sidebar-item{{request()->routeIs('vendor.customers')?'active': ''}}">
+						<a class="sidebar-link" href="#">
+							<i class="align-middle" data-feather="users"></i> 
+							<span class="align-middle">Customers</span>
+						</a>
+					</li>
+
+					<li class="sidebar-header">
+						Settings
+					</li>
+
+					<li class="sidebar-item{{request()->routeIs('vendor.profile')?'active': ''}}">
+						<a class="sidebar-link" href="{{route('vendor.profile')}}">
+							<i class="align-middle" data-feather="user"></i> 
+							<span class="align-middle">Profile</span>
+						</a>
+					</li>
+
+					<li class="sidebar-item{{request()->routeIs('vendor.settings')?'active': ''}}">
+						<a class="sidebar-link" href="#">
+							<i class="align-middle" data-feather="settings"></i> 
+							<span class="align-middle">Store Settings</span>
+						</a>
+					</li>
 				</ul>
-
-				<div class="sidebar-cta">
-					<div class="sidebar-cta-content">
-						<strong class="d-inline-block mb-2">Upgrade to Pro</strong>
-						<div class="mb-3 text-sm">
-							Are you looking for more components? Check out our premium version.
-						</div>
-						<div class="d-grid">
-							<a href="upgrade-to-pro.html" class="btn btn-primary">Upgrade to Pro</a>
-						</div>
-					</div>
-				</div>
 			</div>
 		</nav>
 
 		<div class="main">
 			<nav class="navbar navbar-expand navbar-light navbar-bg">
 				<a class="sidebar-toggle js-sidebar-toggle">
-          <i class="hamburger align-self-center"></i>
-        </a>
+					<i class="hamburger align-self-center"></i>
+				</a>
 
 				<div class="navbar-collapse collapse">
 					<ul class="navbar-nav navbar-align">
@@ -241,23 +266,40 @@
 							</div>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
-                <i class="align-middle" data-feather="settings"></i>
-              </a>
-
 							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                <img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark">Charles Hall</span>
-              </a>
+								<img src="{{ Auth::user()->profile_picture_url }}" class="avatar img-fluid rounded me-1" alt="{{ Auth::user()->name }}" /> 
+								<span class="text-dark">{{ Auth::user()->name }}</span>
+							</a>
 							<div class="dropdown-menu dropdown-menu-end">
-								<a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
-								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
+								<h6 class="dropdown-header">Seller Account</h6>
+								<a class="dropdown-item" href="{{ route('vendor.profile') }}">
+									<i class="align-middle me-1" data-feather="user"></i> My Profile
+								</a>
+								<a class="dropdown-item" href="{{ route('vendor.store.manage') }}">
+									<i class="align-middle me-1" data-feather="shopping-bag"></i> My Stores
+								</a>
+								<a class="dropdown-item" href="{{ route('vendor.product.manage') }}">
+									<i class="align-middle me-1" data-feather="package"></i> My Products
+								</a>
+								
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>
-								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
+								<h6 class="dropdown-header">Settings & Support</h6>
+								<a class="dropdown-item" href="#">
+									<i class="align-middle me-1" data-feather="settings"></i> Account Settings
+								</a>
+								<a class="dropdown-item" href="#">
+									<i class="align-middle me-1" data-feather="bell"></i> Notifications
+								</a>
+								<a class="dropdown-item" href="#">
+									<i class="align-middle me-1" data-feather="help-circle"></i> Help Center
+								</a>
+								
 								<div class="dropdown-divider"></div>
-								<form action="{{route('logout')}}" method="POST">
+								<form action="{{route('logout')}}" method="POST" class="px-2">
 									@csrf
-									<input type="submit" Value='Logout' class="ms-3 btn btn-warning">
+									<button type="submit" class="btn btn-danger btn-sm w-100">
+										<i class="align-middle me-1" data-feather="log-out"></i> Sign Out
+									</button>
 								</form>
 							</div>
 						</li>
@@ -268,38 +310,38 @@
 			<main class="content">
 				<div class="container-fluid p-0">
 
-          @yield('seller_layout')
+					@yield('seller_layout')
 
 				</div>
 			</main>
 
 			<footer class="footer">
-				<div class="container-fluid">
-					<div class="row text-muted">
-						<div class="col-6 text-start">
-							<p class="mb-0">
-								<a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>AdminKit</strong></a> - <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>Bootstrap Admin Template</strong></a>								&copy;
-							</p>
-						</div>
-						<div class="col-6 text-end">
-							<ul class="list-inline">
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Support</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Help Center</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Privacy</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Terms</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</footer>
+                <div class="container-fluid">
+                    <div class="row text-muted">
+                        <div class="col-6 text-start">
+                            <p class="mb-0">
+                                <strong>TrendNest</strong> - Seller Dashboard &copy; {{ date('Y') }}
+                            </p>
+                        </div>
+                        <div class="col-6 text-end">
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <a class="text-muted" href="#">Seller Guide</a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="text-muted" href="#">Support Center</a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="text-muted" href="#">Privacy Policy</a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="text-muted" href="#">Terms of Service</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </footer>
 		</div>
 	</div>
 

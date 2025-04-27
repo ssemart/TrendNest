@@ -1,37 +1,51 @@
 @extends('admin.layouts.layout')
-@section('admin_page_title')
-Edit Sub Category
-@endsection
-@section('admin_layout')
+
+@section('title', 'Edit Subcategory')
+
+@section('content')
+<div class="container-fluid p-0">
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Edit Sub Category</h5>
+                    <h5 class="card-title mb-0">Edit Subcategory</h5>
                 </div>
                 <div class="card-body">
-@if ($errors->any())
-    <div class="alert alert-warning alert-dimissible fade show">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-@if(session('message'))
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-    {{ session('message') }}
-</div>
-@endif
-<form action="{{route('update.subcat', $subcategory_info->id)}}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <label for="subcategory_name" class="fw-bold mb-2">Give Name of Your Sub Category</label>
-                    <input type="text" class="form-control" name="subcategory_name" value="{{$subcategory_info->subcategory_name}}">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 
-                        <button type="submit" class="btn btn-primary w-100 mt-2">Update Sub Category</button>
-                </form>
+                    <form action="{{ route('admin.subcategories.update', $subcategory->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="mb-3">
+                            <label class="form-label">Parent Category</label>
+                            <select class="form-select" name="category_id" required>
+                                <option value="">Select Parent Category</option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}" {{ old('category_id', $subcategory->category_id) == $category->id ? 'selected' : '' }}>
+                                        {{ $category->category_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Subcategory Name</label>
+                            <input type="text" class="form-control" name="subcategory_name" value="{{ old('subcategory_name', $subcategory->subcategory_name) }}" required>
+                            <small class="form-text text-muted">Subcategory name must be between 5 and 100 characters.</small>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Update Subcategory</button>
+                        <a href="{{ route('admin.subcategories') }}" class="btn btn-secondary">Cancel</a>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
