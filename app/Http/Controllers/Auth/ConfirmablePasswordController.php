@@ -42,7 +42,7 @@ class ConfirmablePasswordController extends Controller
         } elseif ($authUserRole == 1) {
             return redirect()->intended(route('vendor.dashboard', absolute: false));
         } else {
-            return redirect()->intended(route('customer.dashboard', absolute: false));
+            return redirect()->intended(route('home', absolute: false));
         }
     }
 }

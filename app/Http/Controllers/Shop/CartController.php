@@ -54,7 +54,7 @@ class CartController extends Controller
         ]);
     }
 
-    public function viewCart()
+    public function viewCart(Request $request)
     {
         $cartIdentifier = $this->getCartIdentifier();
         
@@ -65,6 +65,10 @@ class CartController extends Controller
         $subtotal = $cartItems->sum(function($item) {
             return ($item->product->discounted_price ?? $item->product->regular_price) * $item->quantity;
         });
+
+        if ($request->ajax()) {
+            return view('frontend.partials.cart-items', compact('cartItems'))->render();
+        }
         
         return view('frontend.cart', compact('cartItems', 'subtotal'));
     }
@@ -122,11 +126,20 @@ class CartController extends Controller
 
         $cartItem->delete();
 
-        $cartCount = Cart::where($cartIdentifier)->sum('quantity');
+        // Get updated cart totals
+        $cartItems = Cart::where($cartIdentifier)
+            ->with(['product'])
+            ->get();
+            
+        $cartCount = $cartItems->sum('quantity');
+        $cartTotal = $cartItems->sum(function($item) {
+            return ($item->product->discounted_price ?? $item->product->regular_price) * $item->quantity;
+        });
 
         return response()->json([
             'message' => 'Item removed from cart',
-            'cart_count' => $cartCount
+            'cart_count' => $cartCount,
+            'cart_total' => number_format($cartTotal, 2)
         ]);
     }
 
@@ -150,5 +163,13 @@ class CartController extends Controller
         }
 
         session()->forget('cart_id');
+    }
+
+    public function getCartCount()
+    {
+        $cartIdentifier = $this->getCartIdentifier();
+        $count = Cart::where($cartIdentifier)->sum('quantity');
+        
+        return response()->json(['count' => $count]);
     }
 }

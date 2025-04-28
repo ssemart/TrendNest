@@ -32,5 +32,10 @@
                 {{ $slot }}
             </main>
         </div>
+        
+        <!-- Chat Bot -->
+        <livewire:chat-bot />
+        
+        @livewireScripts
     </body>
 </html>

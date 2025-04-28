@@ -79,9 +79,9 @@
                             <div class="cart-summary">
                                 <h5>Cart Total</h5>
                                 <ul class="summary-table">
-                                    <li><span>subtotal:</span> <span>UGX {{ number_format($cartTotal, 0) }}</span></li>
+                                    <li><span>subtotal:</span> <span>UGX {{ number_format($subtotal, 0) }}</span></li>
                                     <li><span>delivery:</span> <span>Free</span></li>
-                                    <li><span>total:</span> <span>UGX {{ number_format($cartTotal, 0) }}</span></li>
+                                    <li><span>total:</span> <span>UGX {{ number_format($subtotal, 0) }}</span></li>
                                 </ul>
                                 <div class="checkout-btn mt-100">
                                     <a href="{{ route('checkout') }}" class="btn essence-btn">check out</a>
@@ -131,39 +131,6 @@
                     location.reload();
                 }
             });
-        });
-
-        // Remove item from cart
-        $('.remove-from-cart').on('click', function(e) {
-            e.preventDefault();
-            const cartId = $(this).data('cart-id');
-            const row = $(`tr[data-cart-id="${cartId}"]`);
-            
-            if (confirm('Are you sure you want to remove this item?')) {
-                $.ajax({
-                    url: "{{ route('cart.remove') }}",
-                    method: 'POST',
-                    data: {
-                        _token: "{{ csrf_token() }}",
-                        cart_id: cartId
-                    },
-                    success: function(response) {
-                        row.fadeOut(function() {
-                            $(this).remove();
-                            $('#cartCount').text(response.cart_count);
-                            $('#sideCartCount').text(response.cart_count);
-                            
-                            // Reload the page if cart is empty
-                            if (response.cart_count === 0) {
-                                location.reload();
-                            }
-                        });
-                    },
-                    error: function(error) {
-                        alert('Error removing item from cart');
-                    }
-                });
-            }
         });
     });
 </script>

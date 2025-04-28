@@ -36,9 +36,11 @@ Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 // Cart Routes
 Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
 Route::get('/cart', [CartController::class, 'viewCart'])->name('cart');
+Route::get('/cart/count', [CartController::class, 'getCartCount'])->name('cart.count');
 Route::post('/cart/update', [CartController::class, 'updateCart'])->name('cart.update');
 Route::post('/cart/remove', [CartController::class, 'removeFromCart'])->name('cart.remove');
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
 
 // Wishlist Routes
 Route::post('/wishlist/toggle', [WishlistController::class, 'toggleWishlist'])->name('wishlist.toggle');
@@ -144,8 +146,14 @@ Route::middleware(['auth', 'verified', 'rolemanager:customer'])->prefix('user')-
         Route::put('/profile/update', 'updateProfile')->name('customer.profile.update');
         Route::get('/order/history', 'history')->name('customer.order.history');
         Route::get('/setting/payment', 'payment')->name('customer.setting.payment');
+        Route::post('/setting/payment', 'storePaymentMethod')->name('customer.payment.store');
+        Route::delete('/setting/payment/{id}', 'deletePaymentMethod')->name('customer.payment.delete');
         Route::get('/affiliate', 'affiliate')->name('customer.affiliate');
     });
+});
+
+Route::middleware(['auth', 'role:2'])->prefix('customer')->name('customer.')->group(function () {
+    Route::put('/order/{id}/cancel', [CustomerMainController::class, 'cancelOrder'])->name('order.cancel');
 });
 
 // Profile Routes

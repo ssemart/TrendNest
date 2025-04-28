@@ -24,9 +24,9 @@
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
-				<a class="sidebar-brand" href="index.html">
-          <span class="align-middle">AdminKit</span>
-        </a>
+				<a class="sidebar-brand" href="{{ route('home') }}">
+					<span class="align-middle">TrendNest</span>
+				</a>
 
 				<ul class="sidebar-nav">
 					<li class="sidebar-header">
@@ -35,42 +35,28 @@
 
 					<li class="sidebar-item"{{request()->routeIs('customer.dashboard')?'active': ''}}>
 						<a class="sidebar-link" href="{{route('customer.dashboard')}}">
-              <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
-            </a>
+							<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+						</a>
 					</li>
 
 					<li class="sidebar-item"{{request()->routeIs('customer.order.history')?'active': ''}}>
 						<a class="sidebar-link" href="{{route('customer.order.history')}}">
-              <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Order history</span>
-            </a>
+							<i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Order history</span>
+						</a>
 					</li>
 
 					<li class="sidebar-item"{{request()->routeIs('customer.setting.payment')?'active': ''}}>
 						<a class="sidebar-link" href="{{route('customer.setting.payment')}}">
-              <i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Payment</span>
-            </a>
+							<i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Payment</span>
+						</a>
 					</li>
 
 					<li class="sidebar-item"{{request()->routeIs('customer.affiliate')?'active': ''}}>
 						<a class="sidebar-link" href="{{route('customer.affiliate')}}">
-              <i class="align-middle" data-feather="users"></i> <span class="align-middle">Affiliate</span>
-            </a>
+							<i class="align-middle" data-feather="users"></i> <span class="align-middle">Affiliate</span>
+						</a>
 					</li>
-
-					
 				</ul>
-
-				<div class="sidebar-cta">
-					<div class="sidebar-cta-content">
-						<strong class="d-inline-block mb-2">Upgrade to Pro</strong>
-						<div class="mb-3 text-sm">
-							Are you looking for more components? Check out our premium version.
-						</div>
-						<div class="d-grid">
-							<a href="upgrade-to-pro.html" class="btn btn-primary">Upgrade to Pro</a>
-						</div>
-					</div>
-				</div>
 			</div>
 		</nav>
 
@@ -255,22 +241,22 @@
 					<div class="row text-muted">
 						<div class="col-6 text-start">
 							<p class="mb-0">
-								<a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>AdminKit</strong></a> - <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>Bootstrap Admin Template</strong></a>								&copy;
+								<strong>TrendNest</strong> &copy; {{ date('Y') }}
 							</p>
 						</div>
 						<div class="col-6 text-end">
 							<ul class="list-inline">
 								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Support</a>
+									<a class="text-muted" href="{{ route('contact') }}">Support</a>
 								</li>
 								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Help Center</a>
+									<a class="text-muted" href="{{ route('guides') }}">Help Center</a>
 								</li>
 								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Privacy</a>
+									<a class="text-muted" href="{{ route('privacy') }}">Privacy</a>
 								</li>
 								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Terms</a>
+									<a class="text-muted" href="{{ route('terms') }}">Terms</a>
 								</li>
 							</ul>
 						</div>

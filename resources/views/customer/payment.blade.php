@@ -8,6 +8,13 @@
         </div>
     </div>
 
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     <div class="row">
         <div class="col-12 col-lg-8">
             <div class="card">
@@ -27,12 +34,16 @@
                                     @endif
                                 </div>
                                 <div>
-                                    <h6 class="mb-1">{{ $method->name }}</h6>
+                                    <h6 class="mb-1">{{ $method->card_holder }}</h6>
                                     <small class="text-muted">Expires: {{ $method->expiry }}</small>
                                 </div>
                             </div>
                             <div>
-                                <button class="btn btn-sm btn-danger">Remove</button>
+                                <form action="{{ route('customer.payment.delete', $method->id) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to remove this payment method?')">Remove</button>
+                                </form>
                             </div>
                         </div>
                         @endforeach
@@ -53,25 +64,37 @@
                         @csrf
                         <div class="mb-3">
                             <label class="form-label">Card Number</label>
-                            <input type="text" class="form-control" name="card_number" placeholder="**** **** **** ****">
+                            <input type="text" class="form-control @error('card_number') is-invalid @enderror" name="card_number" placeholder="**** **** **** ****">
+                            @error('card_number')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Expiry Date</label>
-                                    <input type="text" class="form-control" name="expiry" placeholder="MM/YY">
+                                    <input type="text" class="form-control @error('expiry') is-invalid @enderror" name="expiry" placeholder="MM/YY">
+                                    @error('expiry')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">CVV</label>
-                                    <input type="text" class="form-control" name="cvv" placeholder="***">
+                                    <input type="text" class="form-control @error('cvv') is-invalid @enderror" name="cvv" placeholder="***">
+                                    @error('cvv')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Card Holder Name</label>
-                            <input type="text" class="form-control" name="card_holder" placeholder="Name on card">
+                            <input type="text" class="form-control @error('card_holder') is-invalid @enderror" name="card_holder" placeholder="Name on card">
+                            @error('card_holder')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <button type="submit" class="btn btn-primary">Add Payment Method</button>
                     </form>

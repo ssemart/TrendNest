@@ -47,7 +47,7 @@ class RoleManager
             case 1:
                 return redirect()->route('vendor.dashboard');
             case 2:
-                return redirect()->route('customer.dashboard');
+                return redirect()->route('home');
         }
         return redirect()->route('login');
 

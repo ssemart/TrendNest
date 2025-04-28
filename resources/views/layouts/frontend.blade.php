@@ -33,7 +33,7 @@
             <!-- Classy Menu -->
             <nav class="classy-navbar" id="essenceNav">
                 <!-- Logo -->
-                <a class="nav-brand" href="{{ route('home') }}"><img src="{{ asset('frontend/img/core-img/logo.png') }}" alt=""></a>
+                <a class="nav-brand" href="{{ route('home') }}"><img src="{{ asset('frontend/img/core-img/trendnest-logo.png') }}" alt="TrendNest"></a>
                 <!-- Navbar Toggler -->
                 <div class="classy-navbar-toggler">
                     <span class="navbarToggler"><span></span><span></span><span></span></span>
@@ -103,7 +103,35 @@
                 <!-- User Login Info -->
                 <div class="user-login-info">
                     @auth
-<a href="{{ route('profile') }}"><img src="{{ asset('frontend/img/core-img/user.svg') }}" alt=""></a>
+                        <div class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="{{ asset('frontend/img/core-img/user.svg') }}" alt="">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                @if(Auth::user()->role == 2)
+                                    <h6 class="dropdown-header">My Account</h6>
+                                    <a class="dropdown-item" href="{{ route('customer.dashboard') }}">
+                                        <i class="fa fa-user me-2"></i> Dashboard
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('customer.order.history') }}">
+                                        <i class="fa fa-history me-2"></i> Order History
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('customer.setting.payment') }}">
+                                        <i class="fa fa-credit-card me-2"></i> Payment Methods
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('customer.affiliate') }}">
+                                        <i class="fa fa-users me-2"></i> Affiliate Program
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                @endif
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item text-danger">
+                                        <i class="fa fa-sign-out me-2"></i> Logout
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
                     @else
                         <a href="{{ route('login') }}"><img src="{{ asset('frontend/img/core-img/user.svg') }}" alt=""></a>
                     @endauth
@@ -164,7 +192,7 @@
                     <div class="single_widget_area d-flex mb-30">
                         <!-- Logo -->
                         <div class="footer-logo mr-50">
-                            <a href="{{ route('home') }}"><img src="{{ asset('frontend/img/core-img/logo2.png') }}" alt=""></a>
+                            <a href="{{ route('home') }}"><img src="{{ asset('frontend/img/core-img/trendnest-logo.png') }}" alt="TrendNest"></a>
                         </div>
                         <!-- Footer Menu -->
                         <div class="footer_menu">
@@ -245,8 +273,157 @@
     <script src="{{ asset('frontend/js/classy-nav.min.js') }}"></script>
     <!-- Active js -->
     <script src="{{ asset('frontend/js/active.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize dropdowns
+            const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+            dropdownToggles.forEach(toggle => {
+                toggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const dropdown = this.closest('.dropdown');
+                    const menu = dropdown.querySelector('.dropdown-menu');
+                    
+                    // Close all other dropdowns
+                    document.querySelectorAll('.dropdown-menu').forEach(otherMenu => {
+                        if (otherMenu !== menu && otherMenu.classList.contains('show')) {
+                            otherMenu.classList.remove('show');
+                        }
+                    });
+                    
+                    // Toggle current dropdown
+                    menu.classList.toggle('show');
+                });
+            });
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.dropdown')) {
+                    document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
+                        menu.classList.remove('show');
+                    });
+                }
+            });
+
+            // Close dropdowns on escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
+                        menu.classList.remove('show');
+                    });
+                }
+            });
+        });
+    </script>
     @livewireScripts
     @stack('scripts')
+    @push('scripts')
+    <script>
+    $(document).ready(function() {
+        // Function to load cart items
+        function loadCartItems() {
+            $.ajax({
+                url: "{{ route('cart') }}",
+                method: 'GET',
+                success: function(response) {
+                    $('#cart-items').html(response);
+                    updateCartCounts();
+                }
+            });
+        }
+
+        // Function to update cart counts
+        function updateCartCounts() {
+            $.ajax({
+                url: "{{ route('cart.count') }}",
+                method: 'GET',
+                success: function(response) {
+                    $('#cartCount').text(response.count);
+                    $('#sideCartCount').text(response.count);
+                }
+            });
+        }
+
+        // Load cart items on page load
+        loadCartItems();
+
+        // Event delegation for add to cart buttons
+        $(document).on('click', '.add-to-cart', function(e) {
+            e.preventDefault();
+            const productId = $(this).data('product-id');
+            const quantity = $('input[name="quantity"]').val() || 1;
+            
+            $.ajax({
+                url: "{{ route('cart.add') }}",
+                method: 'POST',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    product_id: productId,
+                    quantity: quantity
+                },
+                success: function(response) {
+                    loadCartItems();
+                    alert(response.message);
+                },
+                error: function(error) {
+                    alert('Error adding product to cart');
+                }
+            });
+        });
+
+        // Event delegation for remove from cart buttons (handles both sidebar and main cart)
+        $(document).on('click', '.product-remove, .remove-from-cart', function(e) {
+            e.preventDefault();
+            const cartId = $(this).data('cart-id');
+            const cartItem = $(this).closest('.single-cart-item, tr[data-cart-id]');
+            const isMainCart = cartItem.is('tr');
+            
+            if (confirm('Are you sure you want to remove this item?')) {
+                $.ajax({
+                    url: "{{ route('cart.remove') }}",
+                    method: 'POST',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        cart_id: cartId
+                    },
+                    success: function(response) {
+                        cartItem.fadeOut(function() {
+                            $(this).remove();
+                            
+                            // Update cart counts
+                            $('#cartCount').text(response.cart_count);
+                            $('#sideCartCount').text(response.cart_count);
+                            
+                            // Update cart totals
+                            $('#cart-subtotal').text('UGX ' + response.cart_total);
+                            $('#cart-total').text('UGX ' + response.cart_total);
+                            
+                            // If on main cart page
+                            if (isMainCart) {
+                                if (response.cart_count === 0) {
+                                    location.reload();
+                                }
+                            } else {
+                                // If in sidebar
+                                loadCartItems();
+                            }
+                            
+                            // If on checkout page or cart is empty, reload
+                            if (response.cart_count === 0 || window.location.href.indexOf('checkout') > -1) {
+                                location.reload();
+                            }
+                        });
+                    },
+                    error: function(error) {
+                        alert('Error removing item from cart');
+                    }
+                });
+            }
+        });
+    });
+    </script>
+    @endpush
 </body>
 
 </html>
