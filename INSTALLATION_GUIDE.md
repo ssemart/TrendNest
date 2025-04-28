@@ -180,3 +180,4 @@ If you encounter any issues, please:
 - Always backup your database before making any major changes
 - Keep your composer.json and package.json files up to date
 - Regularly update your installation guide if you make changes to the project structure or dependencies
+installation
