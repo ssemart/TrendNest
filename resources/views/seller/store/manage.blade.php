@@ -35,8 +35,8 @@ Manage store
                                     <td>{{$store->slug}}</td>
                                     <td>{{$store->details}}</td>
                                     <td>
-                                        <a href="{{ route('show.substore', $store->id) }}" class="btn btn-info">Edit</a>
-                                        <form action="{{ route('delete.store', $store->id) }}" method="POST" style="display: inline-block;">
+                                        <a href="{{ route('vendor.store.manage', $store->id) }}" class="btn btn-info">Edit</a>
+                                        <form action="{{ route('vendor.delete.store', $store->id) }}" method="POST" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this store?')">Delete</button>
