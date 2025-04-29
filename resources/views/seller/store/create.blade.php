@@ -24,7 +24,7 @@ Create New store
     {{ session('message') }}
 </div>
 @endif
-                    <form action="{{route('create.store')}}" method="POST">
+                    <form action="{{route('vendor.create.store')}}" method="POST">
                         @csrf
                         <label for="store_name" class="fw-bold mb-2">Give Name of Your Store</label>
                         <input type="text" class="form-control" name="store_name" placeholder="Trend store" required>
