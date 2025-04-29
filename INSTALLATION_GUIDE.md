@@ -181,3 +181,19 @@ If you encounter any issues, please:
 - Keep your composer.json and package.json files up to date
 - Regularly update your installation guide if you make changes to the project structure or dependencies
 installation
+
+
+missing the PHP ZIP extension which is required for Composer to download and install packages. Here's how to fix this on Windows with XAMPP:
+
+Enable ZIP Extension in PHP:
+1.Open your php.ini file located at: xamp\php\php.ini
+2.Find the line ;extension=zip (it will be commented out with a semicolon)
+3.Remove the semicolon to uncomment it:extension=zip
+4.Save the file
+5.Restart Services:
+net stop Apache2.4
+net start Apache2.4
+6.Verify ZIP Extension:
+php -m | findstr zip
+You should see "zip" in the output.
+7.composer clear-cache
